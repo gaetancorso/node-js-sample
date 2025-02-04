@@ -3,7 +3,7 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: cimg/base:current
+      - image: docker:20.10.24 
 
 jobs:
   say-hello:
@@ -19,6 +19,11 @@ jobs:
     executor : docker-executor
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.24
+      - run:
+          name: "Install curl"
+          command: "apk add --no-cache curl"
       - run:
           name: "Check Dockerfile existence"
           command: |
