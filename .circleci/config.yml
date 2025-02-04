@@ -38,7 +38,7 @@ jobs:
           name: "Run and Test Container"
           command: |
             docker run --rm -d -p 8080:8080 --name test-container myapp:latest
-            sleep 5
+            sleep 30
             curl -i http://localhost:8080 || (echo "Application not started" && exit 1)
 
 workflows:
