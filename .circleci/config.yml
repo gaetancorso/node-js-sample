@@ -32,16 +32,12 @@ jobs:
       - run:
           name: "Check Dockerfile existence"
           command: "[ -f dockerfile ] && echo 'Dockerfile found' || (echo 'Dockerfile missing' && exit 1)"
-      - run:
           name: "Build Docker Image"
           command: "docker build -t myapp:latest ."
-      - run:
           name : "lunch container"
           command: "docker run --rm -d -p 8080:8080 --name test-container mnoapp:latest"
-      - run:
           name : "sleep 5s"
           command: "sleep 5"
-      - run:
           name : "curl"
           command: "curl -i http://localhost:8080 || (echo "not started" && exit 1)"
 
