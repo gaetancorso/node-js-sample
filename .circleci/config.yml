@@ -1,9 +1,10 @@
 version: 2.1
 
 executors:
-  docker-executor:
-    docker:
-      - image: docker:20.10.24 
+  vm-executor:
+    machine: true
+    working_directory: ~/app
+     
 
 jobs:
   say-hello:
@@ -16,11 +17,9 @@ jobs:
           command: "echo Hello, World!"
 
   build-docker-image:
-    executor : docker-executor
+    executor: vm-executor
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.24
       - run:
           name: "Install curl"
           command: "apk add --no-cache curl"
