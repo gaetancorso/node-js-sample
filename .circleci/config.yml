@@ -22,6 +22,20 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
+  build-docker-image:
+    docker:
+      - image: docker:20.10.24 # Utilisation d'une image Docker officielle
+    steps:
+      - checkout
+      - setup_remote_docker: # Active le support de Docker
+          version: 20.10.24
+      - run:
+          name: "Check Dockerfile existence"
+          command: "[ -f Dockerfile ] && echo 'Dockerfile found' || (echo 'Dockerfile missing' && exit 1)"
+      - run:
+          name: "Build Docker Image"
+          command: "docker build -t myapp:latest ."
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -29,3 +43,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - say-hello
+      - build-docker-image
