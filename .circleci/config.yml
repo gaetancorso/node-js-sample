@@ -36,6 +36,15 @@ jobs:
             docker run --rm -d -p 8080:8080 --name test-container myapp:latest
             sleep 10
             curl http://localhost:8080 || (echo "Application not started" && exit 1)
+            docker stop test-container
+      - run:
+          name: Push Docker image to Docker Hub
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker tag monapp:latest "$DOCKER_USERNAME/monapp:latest"
+            docker push "$DOCKER_USERNAME/monapp:latest"
+
+            
 
 workflows:
   say-hello-workflow:
