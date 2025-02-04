@@ -1,5 +1,10 @@
 version: 2.1
 
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/base:current
+
 jobs:
   say-hello:
     docker:
@@ -11,12 +16,9 @@ jobs:
           command: "echo Hello, World!"
 
   build-docker-image:
-    docker:
-      - image: docker:20.10.24
+    executor : docker-executor
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.24
       - run:
           name: "Check Dockerfile existence"
           command: |
