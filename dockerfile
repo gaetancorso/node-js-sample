@@ -7,8 +7,8 @@ WORKDIR /app
 # Copier les fichiers nécessaires
 COPY package.json package-lock.json ./
 
-# Installer uniquement les dépendances de production
-RUN npm ci --only=production
+RUN npm i
+
 
 # Copier le reste du code de l'application
 COPY . .
@@ -18,4 +18,4 @@ EXPOSE 8080
 
 
 # Démarrer l'application
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
