@@ -38,7 +38,11 @@ jobs:
           name: "Run and Test Container"
           command: |
             docker run --rm -d -p 8080:8080 --name test-container myapp:latest
-            sleep 30
+            sleep 10
+            docker ps -a  # Vérifie si le conteneur est bien lancé
+            if ! docker ps | grep -q test-container; then
+              echo "Container failed to start" && exit 1
+            fi
             curl -i http://localhost:8080 || (echo "Application not started" && exit 1)
 
 workflows:
