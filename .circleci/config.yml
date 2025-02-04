@@ -30,16 +30,12 @@ jobs:
       - setup_remote_docker: # Active le support de Docker
           version: 20.10.24
       - run:
-          name: "Check Dockerfile existence"
-          command: "[ -f dockerfile ] && echo 'Dockerfile found' || (echo 'Dockerfile missing' && exit 1)"
-          name: "Build Docker Image"
-          command: "docker build -t myapp:latest ."
-          name : "lunch container"
-          command: "docker run --rm -d -p 8080:8080 --name test-container mnoapp:latest"
-          name : "sleep 5s"
-          command: "sleep 5"
-          name : "curl"
-          command: "curl -i http://localhost:8080 || (echo "not started" && exit 1)"
+          name: "check docker"
+          command: "[ -f dockerfile ] && echo 'Dockerfile found' || (echo 'Dockerfile missing' && exit 1) 
+          docker build -t myapp:latest .
+          docker run --rm -d -p 8080:8080 --name test-container mnoapp:latest
+          sleep 5
+          curl -i http://localhost:8080 || (echo "not started" && exit 1)""
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
