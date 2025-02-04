@@ -20,7 +20,7 @@ jobs:
       - run:
           name: "Check Dockerfile existence"
           command: |
-            if [ ! -f Dockerfile ]; then
+            if [ ! -f dockerfile ]; then
               echo "Dockerfile missing" && exit 1
             fi
             echo "Dockerfile found"
