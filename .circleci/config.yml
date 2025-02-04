@@ -21,9 +21,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install curl"
-          command: "apk add --no-cache curl"
-      - run:
           name: "Check Dockerfile existence"
           command: |
             if [ ! -f dockerfile ]; then
